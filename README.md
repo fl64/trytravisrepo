@@ -6,6 +6,7 @@ fl64 Infra repository
 ### Описание стенда
 
 bastion_IP = 35.204.252.224
+
 someinternalhost_IP = 10.164.0.3
 
 Детальное описание:
@@ -29,12 +30,14 @@ someinternalhost_IP = 10.164.0.3
 ssh -i ~/.ssh/appuser -A -t appuser@35.204.252.224 ssh 10.164.0.3
 ```
 Результат:
+
 ![](https://i.imgur.com/eB8WmVF.png)
 
 ```shell
 ssh -i ~/.ssh/appuser -J appuser@35.204.252.224 appuser@10.164.0.3
 ```
 Результат:
+
 ![](https://i.imgur.com/Uq5WydF.png)
 
 ### Доп. задание
@@ -67,6 +70,7 @@ ssh someinternalhost
 ```
 
 Результат:
+
 ![](https://i.imgur.com/abzl05D.png)
 
 
