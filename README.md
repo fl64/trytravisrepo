@@ -1,14 +1,19 @@
 - [Homework-4: Intro in GCP](#homework-4-intro-in-gcp)
-  - [Description](#description)
-  - [Homework](#homework)
-  - [Additional homework](#additional-homework)
+    - [Description](#description)
+    - [Homework](#homework)
+    - [Additional homework](#additional-homework)
 - [Homework-5: Deploy if the test app](#homework-5-deploy-if-the-test-app)
-  - [Description](#description)
-  - [What was done](#what-was-done)
-  - [Description of startup parameters](#description-of-startup-parameters)
-  - [How to Check](#how-to-check)
-  - [How do remove](#how-do-remove)
-
+    - [Description](#description)
+    - [What was done](#what-was-done)
+    - [Description of startup parameters](#description-of-startup-parameters)
+    - [How to check](#how-to-check)
+    - [How do remove](#how-do-remove)
+- [Homework-7: Packer](#homework-7-packer)
+    - [What was done](#what-was-done)
+    - [How to run the project](#how-to-run-the-project)
+        - [hw7-Base](#hw7-base)
+        - [hw7-*](#hw7-)
+    - [How to check](#how-to-check)
 # Homework-4: Intro in GCP
 
 ## Description
@@ -135,7 +140,7 @@ gcloud compute firewall-rules create default-puma-server \
 ```
 
 
-## How to check 
+## How to check
 
 В веб-браузере перейти по адресу http://35.204.89.147:9292, в окне браузера отобразится интерфейс приложения.
 
@@ -183,7 +188,7 @@ packer build \
        -var 'src_img_fam=ubuntu-1604-lts' \
        ubuntu16.json
 
-или 
+или
 
 packer validate -var-file=variables.json ubuntu16.json
 packer build -var-file=variables.json ubuntu16.json
@@ -199,8 +204,8 @@ gcloud compute firewall-rules create default-puma-server \
 ![](https://i.imgur.com/1gVdBKJ.png)
 - Задеплоить приложение
 ```
-cd 
-ssh appuser@35.204.252.224 "bash -s" < config-scripts/deploy.sh 
+cd
+ssh appuser@35.204.252.224 "bash -s" < config-scripts/deploy.sh
 ```
 - Done!
 
@@ -219,6 +224,6 @@ config-scripts/create-reddit-vm.sh
 
 ## How to check
 С использованием веб-браузера перейти по адресу http://внешний-адрес-ВМ:9292 (Например: https://35.204.252.224:9292 ).
-В окне веб браузера отобразится установленное приложение:
+В окне веб браузера отобразится установленное приложение.
 
 
