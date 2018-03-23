@@ -1,3 +1,5 @@
+# Table of content
+
 - [Homework-4: Intro in GCP](#homework-4-intro-in-gcp)
     - [Description](#description)
     - [Homework](#homework)
@@ -8,12 +10,13 @@
     - [Description of startup parameters](#description-of-startup-parameters)
     - [How to check](#how-to-check)
     - [How do remove](#how-do-remove)
-- [Homework-7: Packer](#homework-7-packer)
+- [Homework-6: Packer](#homework-7-packer)
     - [What was done](#what-was-done)
     - [How to run the project](#how-to-run-the-project)
-        - [hw7-Base](#hw7-base)
-        - [hw7-*](#hw7-)
+        - [hw6-Base](#hw7-base)
+        - [hw6-*](#hw7-)
     - [How to check](#how-to-check)
+
 # Homework-4: Intro in GCP
 
 ## Description
@@ -157,7 +160,7 @@ gcloud compute firewall-rules delete default-puma-server
 
 ```
 
-# Homework-7: Packer
+# Homework-6: Packer
 ## What was done
 - созданные в hw6 скрипты перенесены в каталог config-scripts
 - создан каталог packer для шаблона ubuntu16.json и подкаталог scripts для скриптов установки сервисов и приложений
@@ -169,7 +172,7 @@ gcloud compute firewall-rules delete default-puma-server
 - создан скрипт запуска ВМ (config-scripts/create-reddit-vm.sh)
 
 ## How to run the project
-### hw7-Base
+### hw6-Base
 - Запустить создание шаблона:
 ```
 cd packer
@@ -209,7 +212,7 @@ ssh appuser@35.204.252.224 "bash -s" < config-scripts/deploy.sh
 ```
 - Done!
 
-### hw7-*
+### hw6-*
 
 - Запустить создание шаблона:
 ```
