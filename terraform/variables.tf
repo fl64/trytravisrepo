@@ -23,3 +23,13 @@ variable private_key_path {
 variable disk_image {
   description = "Disk image"
 }
+
+variable app_port {
+  description = "Reddit app port"
+  default     = 9292
+}
+
+variable app_name {
+  description = "Reddit app name"
+  default     = "reddit-app"
+}
