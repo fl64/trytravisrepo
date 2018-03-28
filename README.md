@@ -1,25 +1,31 @@
 # Table of content
 
-- [Homework-4: Intro in GCP](#homework-4-intro-in-gcp)
-    - [Description](#description)
-    - [Homework](#homework)
-    - [Additional homework](#additional-homework)
-- [Homework-5: Deploy if the test app](#homework-5-deploy-if-the-test-app)
-    - [Description](#description)
-    - [What was done](#what-was-done)
-    - [Description of startup parameters](#description-of-startup-parameters)
-    - [How to check](#how-to-check)
-    - [How do remove](#how-do-remove)
-- [Homework-6: Packer](#homework-7-packer)
-    - [What was done](#what-was-done)
-    - [How to run the project](#how-to-run-the-project)
-        - [hw6-Base](#hw7-base)
-        - [hw6-*](#hw7-)
-    - [How to check](#how-to-check)
+- [Table of content](#table-of-content)
+- [4. Homework-4: Intro in GCP](#4-homework-4-intro-in-gcp)
+    - [4.1 Description](#41-description)
+    - [4.2 Homework](#42-homework)
+    - [4.3 Additional homework](#43-additional-homework)
+- [5. Homework-5: Deploy if the test app](#5-homework-5-deploy-if-the-test-app)
+    - [5.1 Description](#51-description)
+    - [5.2 What was done](#52-what-was-done)
+    - [5.3 Description of startup parameters](#53-description-of-startup-parameters)
+    - [5.4 How to check](#54-how-to-check)
+    - [5.5 How do remove](#55-how-do-remove)
+- [6. Homework-6: Packer](#6-homework-6-packer)
+    - [6.1 What was done](#61-what-was-done)
+    - [6.2 How to run the project](#62-how-to-run-the-project)
+        - [6.2.1 hw6-Base](#621-hw6-base)
+        - [6.2.2 hw6-*](#622-hw6-)
+    - [6.3 How to check](#63-how-to-check)
+- [7. Homework-7: Terraform](#7-homework-7-terraform)
+    - [7.1 What was done](#71-what-was-done)
+    - [7.2 How to run the project](#72-how-to-run-the-project)
+    - [7.3 How to check](#73-how-to-check)
 
-# Homework-4: Intro in GCP
 
-## Description
+# 4. Homework-4: Intro in GCP
+
+## 4.1 Description
 
 bastion_IP = 35.204.252.224
 
@@ -35,7 +41,7 @@ someinternalhost_IP = 10.164.0.3
     - Ext ip: none
     - Int ip: 10.164.0.3
 
-## Homework
+## 4.2 Homework
 
 > Исследовать способ подключения к someinternalhost в одну команду из вашего рабочего устройства,  проверить работоспособность найденного решения и внести его в README.md  
 > в вашем репозитории
@@ -56,7 +62,7 @@ ssh -i ~/.ssh/appuser -J appuser@35.204.252.224 appuser@10.164.0.3
 
 ![](https://i.imgur.com/Uq5WydF.png)
 
-## Additional homework
+## 4.3 Additional homework
 
 > **Доп. задание: ** Предложить вариант решения для подключения из консоли при помощи команды вида ssh internalhost из локальной консоли рабочего устройства, чтобы подключение выполнялось по алиасу internalhost и внести его в README.md в вашем репозитории
 
@@ -89,22 +95,22 @@ ssh someinternalhost
 
 ![](https://i.imgur.com/abzl05D.png)
 
-# Homework-5: Deploy if the test app
+# 5. Homework-5: Deploy if the test app
 
-## Description
+## 5.1 Description
 
 testapp_IP = 35.204.89.147
 
 testapp_port = 9292
 
-## What was done
+## 5.2 What was done
 - перенесены скритпы установки и конфиги VPN в каталог VPN
 - созданы скрипты установки и настройки приложения (install_rubby.sh, install_mongodb.sh, deploy.sh)
 - создан скрипт startup.sh для автоматической установки и настройки приложения при развертывании VM
 - Создана VM reddit-app
 - Назначен статический-ip
 
-## Description of startup parameters
+## 5.3 Description of startup parameters
 
 Перейти в корень репозитория fl64_infra.
 
@@ -143,11 +149,11 @@ gcloud compute firewall-rules create default-puma-server \
 ```
 
 
-## How to check
+## 5.4 How to check
 
 В веб-браузере перейти по адресу http://35.204.89.147:9292, в окне браузера отобразится интерфейс приложения.
 
-## How do remove
+## 5.5 How do remove
 
 Удаление VM
 ```
@@ -160,8 +166,8 @@ gcloud compute firewall-rules delete default-puma-server
 
 ```
 
-# Homework-6: Packer
-## What was done
+# 6. Homework-6: Packer
+## 6.1 What was done
 - созданные в hw6 скрипты перенесены в каталог config-scripts
 - создан каталог packer для шаблона ubuntu16.json и подкаталог scripts для скриптов установки сервисов и приложений
 - в соотвествии с заданием параметризованы переменные создания шаблона ВМ
@@ -171,8 +177,8 @@ gcloud compute firewall-rules delete default-puma-server
 - создан скрипт packer/scripts/deploy.sh для деплоя приложения
 - создан скрипт запуска ВМ (config-scripts/create-reddit-vm.sh)
 
-## How to run the project
-### hw6-Base
+## 6.2 How to run the project
+### 6.2.1 hw6-Base
 - Запустить создание шаблона:
 ```
 cd packer
@@ -212,7 +218,7 @@ ssh appuser@35.204.252.224 "bash -s" < config-scripts/deploy.sh
 ```
 - Done!
 
-### hw6-*
+### 6.2.2 hw6-*
 
 - Запустить создание шаблона:
 ```
@@ -225,8 +231,29 @@ packer build -var 'prj_id=infra-198313' -var 'src_img_fam=ubuntu-1604-lts' immut
 config-scripts/create-reddit-vm.sh
 ```
 
-## How to check
+## 6.3 How to check
 С использованием веб-браузера перейти по адресу http://внешний-адрес-ВМ:9292 (Например: https://35.204.252.224:9292 ).
 В окне веб браузера отобразится установленное приложение.
 
+# 7. Homework-7: Terraform
+## 7.1 What was done
+- создан каталог terraform
+- в нем созданы конфигурации *.tf для автоматизированного развертывания ВМ с приложением в облаке GCP
 
+В рамках задания со *:
+- в конфиг main.tf добавлена возможность добавления ssh-ключей в метаданные проекта
+- создан конфиг lb.tf для создания группы ресурсов и баллансировщика нагрузки 
+
+## 7.2 How to run the project
+
+- создать файл terraform.tfvars и задать в нем значения переменных tf  (пример заполнения в terraform.tfvars.example);
+- выполнить `terraform plan`, убедится в отсутсвии ошибок;
+- выполнить `terraform apply`
+- Done!
+
+## 7.3 How to check
+
+Выполнтиь `terraform output lb_external_ip`
+
+С использованием веб-браузера перейти по адресу указанному в выводе команды.
+В окне веб браузера отобразится установленное приложение.
