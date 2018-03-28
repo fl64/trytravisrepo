@@ -33,7 +33,7 @@ resource "google_compute_backend_service" "reddit-app-backend" {
   timeout_sec = 5
 
   backend {
-      group = "${google_compute_instance_group.reddit-app-grp.self_link}"
+    group = "${google_compute_instance_group.reddit-app-grp.self_link}"
   }
 
   health_checks = ["${google_compute_http_health_check.reddit-app-health-check.self_link}"]
@@ -41,10 +41,10 @@ resource "google_compute_backend_service" "reddit-app-backend" {
 
 ### Forwarding rule
 resource "google_compute_global_forwarding_rule" "reddit-app-forwarding-rule" {
-  name       = "reddit-app-forwarding-rule"
+  name        = "reddit-app-forwarding-rule"
   description = "reddit-app-forwarding-rule"
-  target     = "${google_compute_target_http_proxy.reddit-app-http-proxy.self_link}"
-  port_range = "80"
+  target      = "${google_compute_target_http_proxy.reddit-app-http-proxy.self_link}"
+  port_range  = "80"
 }
 
 ### HTTP-proxy
