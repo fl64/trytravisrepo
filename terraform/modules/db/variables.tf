@@ -25,3 +25,9 @@ variable machine_type {
   description = "Machine type"
   default = "g1-small"
 }
+
+
+variable deploy {
+  description = "Mongo DB IP address"
+  default = false
+}

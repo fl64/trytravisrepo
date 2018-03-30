@@ -15,6 +15,7 @@ module "app" {
   zone             = "${var.zone}"
   app_disk_image   = "${var.app_disk_image}"
   reddit_db_addr   = "${module.db.db_internal_ip}"
+  deploy           = "true"
 }
 
 module "db" {
@@ -24,6 +25,7 @@ module "db" {
   private_key_path = "${var.private_key_path}"
   zone             = "${var.zone}"
   db_disk_image    = "${var.db_disk_image}"
+  deploy           = "true"
 }
 
 module "vpc" {

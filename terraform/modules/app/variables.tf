@@ -29,3 +29,8 @@ variable machine_type {
 variable reddit_db_addr {
   description = "Mongo DB IP address"
 }
+
+variable deploy {
+  description = "Mongo DB IP address"
+  default = false
+}
