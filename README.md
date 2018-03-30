@@ -21,7 +21,11 @@
     - [7.1 What was done](#71-what-was-done)
     - [7.2 How to run the project](#72-how-to-run-the-project)
     - [7.3 How to check](#73-how-to-check)
-
+- [8. Homework-8: Terraform-2](#8-homework-8-terraform-2)
+    - [8.1 What was done](#81-what-was-done)
+    - [8.2 Brief description of the solution ](#82-Brief-description-of-the-solution)
+    - [8.3 How to run the project](#83-how-to-run-the-project)
+    - [8.4 How to check](#84-how-to-check)
 
 # 4. Homework-4: Intro in GCP
 
@@ -270,10 +274,7 @@ config-scripts/create-reddit-vm.sh
 - состояние TF хранится в созданном бакете **fl64-terraform-backend** и описано в файле backend.tf
 - для модулей добавлены возможность провизионинга, которая выполняется в зависимости от значения переменной deply (true\false), значение по умолчанию которой = false
 
-## 7.2 Brief description of the solution
-
-
-
+## 8.2 Brief description of the solution
 
 Провизион выполняется в зависимости от значения переменной deploy, условие запуска провизионинга выполнено в виде ресурса null_resource
 
@@ -304,7 +305,7 @@ resource "null_resource" "app" {
 
 ```
 
-## 7.3 How to run the project
+## 8.3 How to run the project
 
 - cd packer
   - выполнить `packer build -var-file=variables.json app.json`
@@ -319,7 +320,7 @@ resource "null_resource" "app" {
 
 при единовременно запуске `terraform apply`, в stage и prod из-за блокировки tflock запустится тольк один процесс установки
 
-## 7.3 How to check
+## 8.4 How to check
 
 Выполнтиь `terraform output app_external_ip`
 
