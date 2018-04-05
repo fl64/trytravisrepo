@@ -1,5 +1,7 @@
 # Table of content
 
+
+
 - [Table of content](#table-of-content)
 - [4. Homework-4: Intro in GCP](#4-homework-4-intro-in-gcp)
     - [4.1 Description](#41-description)
@@ -15,7 +17,7 @@
     - [6.1 What was done](#61-what-was-done)
     - [6.2 How to run the project](#62-how-to-run-the-project)
         - [6.2.1 hw6-Base](#621-hw6-base)
-        - [6.2.2 hw6-*](#622-hw6-)
+        - [6.2.2 hw6--](#622-hw6)
     - [6.3 How to check](#63-how-to-check)
 - [7. Homework-7: Terraform](#7-homework-7-terraform)
     - [7.1 What was done](#71-what-was-done)
@@ -26,6 +28,10 @@
     - [8.2 Brief description of the solution ](#82-Brief-description-of-the-solution)
     - [8.3 How to run the project](#83-how-to-run-the-project)
     - [8.4 How to check](#84-how-to-check)
+- [9. Homework-9: Ansible-1](#9-homework-9-ansible-1)
+    - [9.1 What was done](#91-what-was-done)
+    - [9.2 How to run the project](#92-how-to-run-the-project)
+    - [9.3 How to check](#93-how-to-check)
 
 # 4. Homework-4: Intro in GCP
 
@@ -326,4 +332,45 @@ resource "null_resource" "app" {
 
 С использованием веб-браузера перейти по адресу указанному в выводе команды.
 В окне веб браузера отобразится установленное приложение.
+
+# 9. Homework-9: Ansible-1
+## 9.1 What was done
+- создан каталог ansible
+- созданы файл конфигурации и инвентори файлы (ini, yml, json*) для ansible
+
+В рамках задания со *:
+- создан скрипт на bash позволяющий передать json-inventory в ansible
+
+## 9.2 How to run the project
+
+- cd $GITREPO/terraform/stage
+  - выполнить `curl ifconfig.me`
+  - добавить IP-адрес из вывода предыдущей команды в main.tf (переменна source_ranges = ["xxx.xxx.xxx.xxx"])
+  - выполнить `terraform apply`
+- cd $GITREPO/ansible/stage
+  - выполнить `ansible all -m ping`
+  - выполнить `ansible all -m ping -i ./inventory`
+  - выполнить `ansible all -m ping -i ./inventory.yml`
+  - выполнить `ansible all -m ping -i ./showmejson.sh`
+- Done!
+
+при единовременно запуске `terraform apply`, в stage и prod из-за блокировки tflock запустится тольк один процесс установки
+
+## 9.3 How to check
+
+Резульататы выполнения ansible должны показать нечто похожее:
+
+```
+[user@default ~/git/fl64_infra/ansible]$ ansible all -m ping
+dbserver | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+appserver | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+```
+Ошибки отсутствуют.
 
