@@ -30,7 +30,7 @@ module "db" {
 
 module "vpc" {
   source        = "../modules/vpc"
-  source_ranges = ["46.61.242.155"]
+  source_ranges = ["213.24.132.137"]
 }
 
 ### Add two ssh keys to Project metadata
