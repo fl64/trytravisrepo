@@ -53,7 +53,7 @@ someinternalhost_IP = 10.164.0.3
 
 ## 4.2 Homework
 
-> Исследовать способ подключения к someinternalhost в одну команду из вашего рабочего устройства,  проверить работоспособность найденного решения и внести его в README.md  
+> Исследовать способ подключения к someinternalhost в одну команду из вашего рабочего устройства,  проверить работоспособность найденного решения и внести его в README.md
 > в вашем репозитории
 
 Варианты выполнения:
@@ -252,12 +252,12 @@ config-scripts/create-reddit-vm.sh
 
 В рамках задания со *:
 - в конфиг main.tf добавлена возможность добавления ssh-ключей в метаданные проекта
-- создан конфиг lb.tf для создания группы ресурсов и баллансировщика нагрузки 
+- создан конфиг lb.tf для создания группы ресурсов и баллансировщика нагрузки
 
 ## 7.2 How to run the project
 
 - создать файл terraform.tfvars и задать в нем значения переменных tf  (пример заполнения в terraform.tfvars.example);
-- выполнить `terraform plan`, убедится в отсутсвии ошибок;
+- выполнить `terraform plan`, убедится в отсутствии ошибок;
 - выполнить `terraform apply`
 - Done!
 
@@ -313,10 +313,10 @@ resource "null_resource" "app" {
 
 ## 8.3 How to run the project
 
-- cd packer
+- cd $GITREPO/packer
   - выполнить `packer build -var-file=variables.json app.json`
   - выполнить `packer build -var-file=variables.json db.json`
-- cd terraform/{prod,stage}
+- cd $GITREPO/terraform/{prod,stage}
   - для stage в **main.tf** необходио задать значние source_ranges = ["внешний-IP"], где внешний ip получаем выполняя `curl ifconfig.co`
   - выполняем `terraform init` для установки нужных модулей и провайдеров, можно просто `terraform get` в случае если провайдеры уже установлены.
   - создать файл terraform.tfvars и задать в нем значения переменных tf  (пример заполнения в terraform.tfvars.example);
@@ -324,7 +324,7 @@ resource "null_resource" "app" {
   - выполнить `terraform apply`
 - Done!
 
-при единовременно запуске `terraform apply`, в stage и prod из-за блокировки tflock запустится тольк один процесс установки
+при единовременном запуске `terraform apply`, в stage и prod из-за блокировки tflock запустится тольк один процесс установки
 
 ## 8.4 How to check
 
@@ -353,8 +353,6 @@ resource "null_resource" "app" {
   - выполнить `ansible all -m ping -i ./inventory.yml`
   - выполнить `ansible all -m ping -i ./showmejson.sh`
 - Done!
-
-при единовременно запуске `terraform apply`, в stage и prod из-за блокировки tflock запустится тольк один процесс установки
 
 ## 9.3 How to check
 
