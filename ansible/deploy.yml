@@ -1,0 +1,19 @@
+---
+- name: Configure hosts app deploy app
+  hosts: app
+  become: true
+  tasks:
+  - name: Fetch latest app version
+    git:
+      repo: 'https://github.com/Otus-DevOps-2017-11/reddit.git'
+      dest: /home/appuser/reddit
+      version: monolith
+    notify: restart puma
+  - name: Bundle install
+    bundler:
+      state: present
+      chdir: /home/appuser/reddit
+
+  handlers:
+  - name: restart puma
+    systemd: name=puma state=restarted

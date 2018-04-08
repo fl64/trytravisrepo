@@ -17,7 +17,7 @@
     - [6.1 What was done](#61-what-was-done)
     - [6.2 How to run the project](#62-how-to-run-the-project)
         - [6.2.1 hw6-Base](#621-hw6-base)
-        - [6.2.2 hw6--](#622-hw6)
+        - [6.2.2 hw6--](#622-hw6-)
     - [6.3 How to check](#63-how-to-check)
 - [7. Homework-7: Terraform](#7-homework-7-terraform)
     - [7.1 What was done](#71-what-was-done)
@@ -32,6 +32,11 @@
     - [9.1 What was done](#91-what-was-done)
     - [9.2 How to run the project](#92-how-to-run-the-project)
     - [9.3 How to check](#93-how-to-check)
+- [10. Homework-10: Ansible-2](#10-homework-10-ansible-2)
+    - [10.1 What was done](#101-what-was-done)
+    - [10.2 Brief description of the solution ](#102-Brief-description-of-the-solution)
+    - [10.3 How to run the project](#103-how-to-run-the-project)
+    - [10.4 How to check](#104-how-to-check)
 
 # 4. Homework-4: Intro in GCP
 
@@ -343,11 +348,11 @@ resource "null_resource" "app" {
 
 ## 9.2 How to run the project
 
-- cd $GITREPO/terraform/stage
+- cd $GIT_REPO_ROOT/terraform/stage
   - выполнить `curl ifconfig.me`
   - добавить IP-адрес из вывода предыдущей команды в main.tf (переменна source_ranges = ["xxx.xxx.xxx.xxx"])
   - выполнить `terraform apply`
-- cd $GITREPO/ansible/stage
+- cd $GIT_REPO_ROOT/ansible/stage
   - выполнить `ansible all -m ping`
   - выполнить `ansible all -m ping -i ./inventory`
   - выполнить `ansible all -m ping -i ./inventory.yml`
@@ -371,4 +376,49 @@ appserver | SUCCESS => {
 
 ```
 Ошибки отсутствуют.
+
+# 10. Homework-10: Ansible-2
+## 10.1 What was done
+- в соотвествии с заданием созданы плейбуки:
+  - reddit_app_one_play.yml
+  - reddit_app_multiple_play.yml
+  - {app,db,deploy}.yml + site.yml
+  - packer_{app,db}.yml
+- в конфиги пакера добавлена возможность установки софта из созданных плейбуков
+
+В рамках задания со *:
+- создан инвентори-скрипт для получения данных об инстансах GCP
+
+## 10.2 Brief description of the solution
+
+Задание со *.
+Для работы инвентори-скрипта необходимо:
+- наличие установленного пакета GCP SDK
+- аутентифкация в GCP: `gcloud auth login`
+
+Следуя рекомендации не зацикливаться на gce.py и в соотествии с принципами YAGNI\KISS, был разработан простой инвентори-скрипт на питоне. Краткое описание его работы:
+- с ипользованием gcloud запрашивается запущенные инстаннсы в формате json.
+- данные парсятся и добавляются в sqlite базу, с целью упрощения дальнейшей выборки
+- формируется словарь с инстансами и значениями переменной ansible_host(белый адрес хоста), int_ip (локальный адрес хоста \ прикручивать который к плейбуку в итоге не стал)
+- название группы в ansible inventory формируется из тега GCP (берется второе слово после "-"), поэтому из этого вытекают правила формирования тегов (приложение-типинстанса)
+
+## 10.3 How to run the project
+
+- cd $GIT_REPO_ROOT
+  - выполнить `packer build -var-file=packer/variables.json packer/app.json`
+  - выполнить `packer build -var-file=packer/variables.json packer/db.json`
+- cd $GIT_REPO_ROOT/terraform/stage
+  - для stage в **main.tf** необходио задать значние source_ranges = ["внешний-IP"], где внешний ip получаем выполняя `curl ifconfig.co`
+  - выполнить `terraform apply`
+- cd $GIT_REPO_ROOT/ansible
+  - выполнить `ansible-playbook site.yml`
+- Done!
+
+## 10.4 How to check
+
+Выполнтиь `terraform output app_external_ip`
+
+С использованием веб-браузера перейти по адресу указанному в выводе команды.
+Например: http://35.204.131.204:9292
+В окне веб браузера отобразится установленное приложение.
 

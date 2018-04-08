@@ -1,0 +1,7 @@
+{
+  "prj_id":"infra-198313",
+  "src_img_fam":"ubuntu-1604-lts",
+  "db_disk_size":"10",
+  "app_disk_size":"10"
+}
+
