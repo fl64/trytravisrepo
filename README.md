@@ -325,7 +325,7 @@ resource "null_resource" "app" {
   - для stage в **main.tf** необходио задать значние source_ranges = ["внешний-IP"], где внешний ip получаем выполняя `curl ifconfig.co`
   - выполняем `terraform init` для установки нужных модулей и провайдеров, можно просто `terraform get` в случае если провайдеры уже установлены.
   - создать файл terraform.tfvars и задать в нем значения переменных tf  (пример заполнения в terraform.tfvars.example);
-  - выполнить `terraform plan`, убедится в отсутсвии ошибок;
+  - выполнить `terraform plan`, убедится в отсутствии ошибок;
   - выполнить `terraform apply`
 - Done!
 
