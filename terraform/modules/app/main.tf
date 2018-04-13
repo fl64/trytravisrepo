@@ -65,7 +65,7 @@ resource "null_resource" "app" {
   }
 }
 
-### FW rule
+### APP FW rule
 resource "google_compute_firewall" "firewall_puma" {
   name    = "allow-puma-default"
   network = "default"
@@ -73,6 +73,20 @@ resource "google_compute_firewall" "firewall_puma" {
   allow {
     protocol = "tcp"
     ports    = ["${var.app_port}"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["reddit-app"]
+}
+
+### Http APP FW rule
+resource "google_compute_firewall" "firewall_puma_http" {
+  name    = "allow-puma-http-default"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["${var.app_http_port}"]
   }
 
   source_ranges = ["0.0.0.0/0"]

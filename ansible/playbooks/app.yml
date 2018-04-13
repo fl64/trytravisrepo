@@ -1,0 +1,9 @@
+---
+- name: Configure and deploy app
+  hosts: app
+  become: true
+
+  roles:
+    - app
+    - jdauphant.nginx
+

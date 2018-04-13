@@ -21,6 +21,11 @@ variable app_port {
   default     = 9292
 }
 
+variable app_http_port {
+  description = "Reddit app http port"
+  default     = 80
+}
+
 variable machine_type {
   description = "Machine type"
   default = "g1-small"
