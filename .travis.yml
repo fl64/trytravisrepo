@@ -1,9 +1,42 @@
 dist: trusty
 sudo: required
-language: bash
+language: python
+python: "2.7"
 before_install:
-- curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-02/run.sh |
-  bash
+#- curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-02/run.sh | bash
+- sudo apt update
+
+brahches:
+  only:
+    - ansible-3
+
+env:
+  matrix:
+    - GETENV=stage
+    - GETENV=prod
+
+install:
+- sudo pip install ansible
+- sudo pip install ansible-lint
+- wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+- wget https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
+- wget https://releases.hashicorp.com/packer/1.2.2/packer_1.2.2_linux_amd64.zip
+#- sudo unzip -o packer_1.2.2_linux_amd64.zip -d /usr/bin
+#- sudo unzip -o tflint_linux_amd64.zip -d /usr/bin
+#- sudo unzip -o terraform_0.11.7_linux_amd64.zip -d /usr/bin
+- sudo unzip -o "*.zip" -d /usr/bin
+- touch ~/.ssh/{appuser.pub,appuser}
+
+script:
+- packer validate -var-file=packer/variables.json.example packer/db.json
+- packer validate -var-file=packer/variables.json.example packer/app.json
+- ansible-lint ./ansible/playbooks/site.yml
+- cd terraform/${GETENV}
+- terraform init -backend=false;
+- terraform validate --var-file=terraform.tfvars.example;
+- tflint --var-file=terraform.tfvars.example --error-with-issues
+
+
 notifications:
   slack:
     secure: xRlUdUPxCGhw7iSOmnRqTyuxbvvu9Fq7jBScHGN7+zHv8h/k+5aaNbCoqS91QQsZZHZ9vCGTdN9B8XYW9lQ51vkOZewAFJyGgo7KbJSz0lD/cREC5zBPHfox0/xqEY/ZwnRFZ839WVD2M7VGPe0ms1EtIwXwJje6OSfWox23l3nrj063RxztHy5oPi6utD6WhhQE80N0M3+lqY9dIAZn6zO0gq+BNrd1xFdSRxnmvbbSMTZAMYSvrJeu5ti6Ic+HcIFv+aW/7anO9Iej+dIPGZ/+Tfn2o7Mli7tb5ZJs4ZBsaYNX4anrJCAazkwkeJeVhQ6qjihjt+aiaj6eSLXrid5O3Xox2hfAAZpSWhNNzSRiRD9QzLkDuIwlFL+o/Bz2pkuKdNBtjGgngYlZ8ufZ1DIaFNaLtX87jFJLD19FfBuVZRztfl1aTVKyL2Xb6xJyIPVQy+rGLMabhxz39O6wtFrmsaHZ1VryKt86ViE9hSJUC7myeQ665latgfbbCY9QtIKyHhNr1gUbrim/QbrY5+JEAi1cJHmLQjuvnHU13CYvhgFe0+wCoMqGlRy7WDVcYoRzV2Wm6yPLQlF5fu2FEmO7n/N5wcuV7m+5SGCXV9uowjH+SRi0x9Xpu5TaUHg0673vqUTKc0jQqCoO4UbrWqA+5Q1gE38hJ3J7Frmay5A=
